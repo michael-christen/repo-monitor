@@ -63,9 +63,9 @@ test: develop
 		--cov=$(PACKAGE_NAME) \
 		--cov-report=xml \
 		--cov-report=term-missing
-	repomon coverage_py | xargs fkvstore coverage
-	repomon nosetest_py num_tests | xargs fkvstore num_tests
-	repomon nosetest_py time | xargs fkvstore test_time
+	$(WITH_VENV) repomon coverage_py | xargs fkvstore coverage
+	$(WITH_VENV) repomon nosetest_py num_tests | xargs fkvstore num_tests
+	$(WITH_VENV) repomon nosetest_py time | xargs fkvstore test_time
 
 .PHONY: sdist
 sdist:
