@@ -21,7 +21,10 @@ class CoverageParser(object):
     def run(self, args):
         parsed_args = self.base_parser.parse_args(args)
         format_string = '{:.' + str(parsed_args.num_decimals) + 'f}%'
-        print format_string.format(100 * get_total_coverage(parsed_args.file))
+        coverage_string = format_string.format(
+            100 * get_total_coverage(parsed_args.file))
+        print coverage_string
+        return coverage_string
 
 
 class NosetestParser(object):
@@ -44,9 +47,11 @@ class NosetestParser(object):
             data = f.read()
         nosetest_data = NosetestDeserializer(data)
         metric = getattr(nosetest_data, parsed_args.metric)
+        output_str = ''
         if isinstance(metric, dict):
-            for k, v in metric.viewitems():
-                print k, v
+            test_list = ['{} {}'.format(k, v) for k, v in metric.viewitems()]
+            output_str = '\n'.join(test_list)
         else:
-            print metric
-        return metric
+            output_str = '{}'.format(metric)
+        print output_str
+        return output_str

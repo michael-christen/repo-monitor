@@ -86,14 +86,8 @@ class TestTests(unittest.TestCase):
 
     def test_nosetest_parser(self):
         file_arg = '--file={}'.format(_get_data_filename('test_nosetests.xml'))
-        self.assertEqual(0.138, NosetestParser().run(['time', file_arg]))
-        self.assertEqual(5, NosetestParser().run(['num_tests', file_arg]))
-        expected_test2time = {
-            'file_kvstore.tests.test_basic.TestBasic:test_add': 1.5,
-            'file_kvstore.tests.test_basic.TestBasic:test_format': 0.023,
-            'file_kvstore.tests.test_basic.TestBasic:test_order': 0.13,
-            'file_kvstore.tests.test_basic.TestBasic:test_start': 0.00015,
-            'file_kvstore.tests.test_basic.TestBasic:test_replace': 10.23,
-        }
-        self.compare_dicts(expected_test2time,
-                           NosetestParser().run(['test2time', file_arg]))
+        self.assertEqual('0.138', NosetestParser().run(['time', file_arg]))
+        self.assertEqual('5', NosetestParser().run(['num_tests', file_arg]))
+        self.assertEqual(5,
+                         len(NosetestParser().run(['test2time',
+                             file_arg]).split('\n')))
