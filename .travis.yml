@@ -1,0 +1,4 @@
+language: python
+script:
+    - make lint
+    - make test
