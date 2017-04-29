@@ -52,7 +52,7 @@ class TestCoverage(unittest.TestCase):
     def test_basic(self):
         self.assertEqual(
             0.883,
-            get_total_coverage(_get_data_filename('coverage.xml')))
+            get_total_coverage(_get_data_filename('test_coverage.xml')))
 
 
 class TestTests(unittest.TestCase):
@@ -72,7 +72,7 @@ class TestTests(unittest.TestCase):
     def test_basic(self):
         self.maxDiff = None
         nosetest_data = parse_nosetest_output(
-            _get_data_filename('nosetests.xml'))
+            _get_data_filename('test_nosetests.xml'))
         self.assertEqual(5, nosetest_data.num_tests)
         self.assertEqual(0.138, nosetest_data.time)
         expected_test2time = {
@@ -85,7 +85,7 @@ class TestTests(unittest.TestCase):
         self.compare_dicts(expected_test2time, nosetest_data.test2time)
 
     def test_nosetest_parser(self):
-        file_arg = '--file={}'.format(_get_data_filename('nosetests.xml'))
+        file_arg = '--file={}'.format(_get_data_filename('test_nosetests.xml'))
         self.assertEqual(0.138, NosetestParser().run(['time', file_arg]))
         self.assertEqual(5, NosetestParser().run(['num_tests', file_arg]))
         expected_test2time = {
