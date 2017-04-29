@@ -4,7 +4,6 @@ VENV_ACTIVATE=$(VENV_DIR)/bin/activate
 WITH_VENV=. $(VENV_ACTIVATE);
 REQUIREMENTS=$(wildcard requirements*.txt)
 
-TEST_OUTPUT_DIR?=test-output
 TEST_OUTPUT_XML?=nosetests.xml
 COVERAGE_DIR?=htmlcov
 COVERAGE_DATA?=coverage.xml
@@ -35,7 +34,7 @@ clean:
 	rm -rf *.egg*/
 	rm -rf __pycache__/
 	rm -f MANIFEST
-	rm -rf $(TEST_OUTPUT_DIR)
+	rm -f $(TEST_OUTPUT_XML)
 	rm -rf $(COVERAGE_DIR)
 	rm -f $(COVERAGE_DATA)
 	find $(PACKAGE_NAME) -type f -name '*.pyc' -delete
@@ -60,10 +59,13 @@ test: develop
 		--doctest-modules \
 		--ignore=setup.py \
 		--ignore=$(VENV_DIR) \
-		--junit-xml=$(TEST_OUTPUT_DIR)/$(TEST_OUTPUT_XML) \
+		--junit-xml=$(TEST_OUTPUT_XML) \
 		--cov=$(PACKAGE_NAME) \
 		--cov-report=xml \
 		--cov-report=term-missing
+	repomon coverage_py | xargs fkvstore coverage
+	repomon nosetest_py num_tests | xargs fkvstore num_tests
+	repomon nosetest_py time | xargs fkvstore test_time
 
 .PHONY: sdist
 sdist:

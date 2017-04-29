@@ -20,3 +20,7 @@ six==1.10.0
 radon==1.4.0
 mando==0.3.3
 colorama==0.3.7
+
+# fkvstore
+file-kvstore==0.1.0
+PyYAML==3.11
