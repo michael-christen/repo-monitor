@@ -1,4 +1,3 @@
-from collections import namedtuple
 from xml.etree import ElementTree as ET
 
 
@@ -9,11 +8,9 @@ def get_total_coverage(filename='coverage.xml'):
     return float(root.attrib['line-rate'])
 
 
-NosetestData = namedtuple('NosetestData', ['num_tests', 'time', 'test2time'])
 class NosetestData(object):
-    def __init__(self, filename='test-output/nosetests.xml'):
-        tree = ET.parse(filename)
-        root = tree.getroot()
+    def __init__(self, data):
+        root = ET.fromstring(data)
         assert root.tag == 'testsuite'
         self.time = float(root.attrib['time'])
         self.num_tests = int(root.attrib['tests'])
@@ -27,4 +24,5 @@ class NosetestData(object):
 
 
 def parse_nosetest_output(filename='test-output/nosetests.xml'):
-    return NosetestData(filename=filename)
+    with open(filename, 'r') as f:
+        return NosetestData(f.read())

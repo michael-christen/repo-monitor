@@ -18,6 +18,6 @@ setup(
     package_data={},
     data_files=[],
     entry_points={
-        'console_scripts': [],
+        'console_scripts': ['repomon=repo_monitor.parser:main'],
     },
 )
