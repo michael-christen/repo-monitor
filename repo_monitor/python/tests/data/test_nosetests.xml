@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuite errors="0" failures="0" name="pytest" skips="0" tests="5" time="0.138">
+    <testcase
+        classname="file_kvstore.tests.test_basic.TestBasic"
+        file="file_kvstore/tests/test_basic.py"
+        line="30"
+        name="test_add"
+        time="1.5000000001"></testcase>
+    <testcase
+        classname="file_kvstore.tests.test_basic.TestBasic"
+        file="file_kvstore/tests/test_basic.py"
+        line="51"
+        name="test_format"
+        time="0.023"><system-out>a: 5.123 h: hello </system-out></testcase>
+    <testcase
+        classname="file_kvstore.tests.test_basic.TestBasic"
+        file="file_kvstore/tests/test_basic.py"
+        line="37"
+        name="test_order"
+        time="0.13"></testcase>
+    <testcase
+        classname="file_kvstore.tests.test_basic.TestBasic"
+        file="file_kvstore/tests/test_basic.py"
+        line="44"
+        name="test_replace"
+        time="10.23"></testcase>
+    <testcase
+        classname="file_kvstore.tests.test_basic.TestBasic"
+        file="file_kvstore/tests/test_basic.py"
+        line="23"
+        name="test_start"
+        time="0.00015"></testcase></testsuite>

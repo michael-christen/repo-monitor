@@ -1,9 +1,9 @@
 import os
 import unittest
 
-from ..parse_test_output import get_total_coverage
-from ..parse_test_output import parse_nosetest_output
-from ..parser import NosetestParser
+from ..deserializers import get_total_coverage
+from ..deserializers import parse_nosetest_output
+from ..parsers import NosetestParser
 
 
 def _get_data_filename(filename):
@@ -45,8 +45,7 @@ EXAMPLE_TEST_XML = '''
         line="23"
         name="test_start"
         time="0.00015"></testcase></testsuite>
-'''
-
+'''  # noqa
 
 
 class TestCoverage(unittest.TestCase):
