@@ -1,6 +1,6 @@
 import argparse
 
-from .deserializers import get_total_coverage
+from .deserializers import CoverageDeserializer
 from .deserializers import NosetestDeserializer
 
 
@@ -20,9 +20,10 @@ class CoverageParser(object):
 
     def run(self, args):
         parsed_args = self.base_parser.parse_args(args)
+        with open(parsed_args.file, 'r') as f:
+            line_rate = CoverageDeserializer(f.read()).line_rate
         format_string = '{:.' + str(parsed_args.num_decimals) + 'f}%'
-        coverage_string = format_string.format(
-            100 * get_total_coverage(parsed_args.file))
+        coverage_string = format_string.format(100 * line_rate)
         print coverage_string
         return coverage_string
 

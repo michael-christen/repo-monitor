@@ -1,12 +1,6 @@
 from xml.etree import ElementTree as ET
 
 
-def get_total_coverage(filename='coverage.xml'):
-    '''Get coverage percentage of a repository from the output of pytest.'''
-    with open(filename, 'r') as f:
-        return CoverageDeserializer(f.read()).line_rate
-
-
 class CoverageDeserializer(object):
     def __init__(self, data):
         root = ET.fromstring(data)
@@ -26,8 +20,3 @@ class NosetestDeserializer(object):
                 test_case.attrib['classname'], test_case.attrib['name'])
             self.test2time[test_name] = float(test_case.attrib['time'])
         assert self.num_tests == len(self.test2time)
-
-
-def parse_nosetest_output(filename='test-output/nosetests.xml'):
-    with open(filename, 'r') as f:
-        return NosetestDeserializer(f.read())
