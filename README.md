@@ -1,6 +1,7 @@
 # repo-monitor
 Utility for Monitoring Certain Attributes of a Repository
 
+[![Build Status](https://travis-ci.org/michael-christen/repo-monitor.svg?branch=master)](https://travis-ci.org/michael-christen/repo-monitor)
 
 ## Python
 
