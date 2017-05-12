@@ -2,6 +2,7 @@ import argparse
 
 from .deserializers import CoverageDeserializer
 from .deserializers import NosetestDeserializer
+from .deserializers import RadonDeserializer
 
 
 class CoverageParser(object):
@@ -54,5 +55,30 @@ class NosetestParser(object):
             output_str = '\n'.join(test_list)
         else:
             output_str = '{}'.format(metric)
+        print output_str
+        return output_str
+
+
+class RadonParser(object):
+    def __init__(self):
+        self.base_parser = argparse.ArgumentParser(
+            description='Get Code Quality Metrics',
+        )
+        self.base_parser.add_argument(
+            'metric',
+            choices=['lloc', 'cc', 'mi'],
+            help='Metric to gather')
+        self.base_parser.add_argument(
+            'package',
+            help='Package to inspect')
+
+    def run(self, args):
+        parsed_args = self.base_parser.parse_args(args)
+        radon_data = RadonDeserializer(parsed_args.package).metric_dict
+        if parsed_args.metric == 'lloc':
+            format_str = '{:d}'
+        else:
+            format_str = '{:0.2f}'
+        output_str = format_str.format(radon_data[parsed_args.metric])
         print output_str
         return output_str
