@@ -33,6 +33,19 @@ class NosetestDeserializer(object):
 
 
 class RadonDeserializer(object):
+    def __init__(self, package):
+        self.paths = [package]
+        raw_data = RawHarvester(self.paths, Config(
+            exclude=None,
+            ignore=None,
+        ))
+        raw_dict = json.loads(raw_data.as_json())
+        self.metric_dict = {
+            'lloc': self._get_sum_metric_from_raw_dict(raw_dict, 'lloc'),
+            'cc': self._get_average_cc(),
+            'mi': self._get_weighted_mi(raw_dict),
+        }
+
     def _get_sum_metric_from_raw_dict(self, raw_dict, metric):
         sum_metrics = defaultdict(int)
         for f_name, raw_value in raw_dict.iteritems():
@@ -78,18 +91,3 @@ class RadonDeserializer(object):
             total_mi += mi_value['mi'] * cur_lloc
             total_lloc += cur_lloc
         return total_mi / (total_lloc + 0.0)
-
-
-    def __init__(self, package):
-        paths = [package]
-        self.paths = [package]
-        raw_data = RawHarvester(self.paths, Config(
-            exclude=None,
-            ignore=None,
-        ))
-        raw_dict = json.loads(raw_data.as_json())
-        self.metric_dict = {
-            'lloc': self._get_sum_metric_from_raw_dict(raw_dict, 'lloc'),
-            'cc': self._get_average_cc(),
-            'mi': self._get_weighted_mi(raw_dict),
-        }

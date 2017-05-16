@@ -1,6 +1,6 @@
-coverage: 53%
-cyclomatic_complexity: 2.23
-logical_loc: 163
-maintanibility_index: 63.51
+coverage: 54%
+cyclomatic_complexity: 1.97
+logical_loc: 166
+maintanibility_index: 63.07
 num_tests: 3
-test_time: 0.158
+test_time: 0.168
