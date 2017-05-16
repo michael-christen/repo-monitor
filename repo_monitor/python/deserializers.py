@@ -33,20 +33,15 @@ class NosetestDeserializer(object):
 
 
 class RadonDeserializer(object):
-    def __init__(self, package):
-        paths = [package]
-        raw_data = RawHarvester(paths, Config(
-            exclude=None,
-            ignore=None,
-        ))
-        raw_dict = json.loads(raw_data.as_json())
+    def _get_sum_metric_from_raw_dict(self, raw_dict, metric):
         sum_metrics = defaultdict(int)
         for f_name, raw_value in raw_dict.iteritems():
             for k, v in raw_value.iteritems():
                 sum_metrics[k] += v
-        lloc = sum_metrics['lloc']
+        return sum_metrics[metric]
 
-        cc_data = CCHarvester(paths, Config(
+    def _get_average_cc(self):
+        cc_data = CCHarvester(self.paths, Config(
             min='A',
             max='F',
             exclude=None,
@@ -56,17 +51,18 @@ class RadonDeserializer(object):
             show_closures=False,
         ))
         # Copy CCHarvestor
-        average_cc = 0.0
+        total_cc = 0.0
         analyzed = 0
         for name, blocks in cc_data.results:
             if 'error' in blocks:
                 continue
             _, cc, n = cc_to_terminal(blocks, True, 'A', 'F', True)
-            average_cc += cc
+            total_cc += cc
             analyzed += n
-        cc = average_cc / analyzed
+        return total_cc / analyzed
 
-        mi_data = MIHarvester(paths, Config(
+    def _get_weighted_mi(self, raw_dict):
+        mi_data = MIHarvester(self.paths, Config(
             min='A',
             max='F',
             multi=True,
@@ -81,10 +77,19 @@ class RadonDeserializer(object):
             cur_lloc = raw_dict[f_name]['lloc']
             total_mi += mi_value['mi'] * cur_lloc
             total_lloc += cur_lloc
-        weighted_mi = total_mi / (total_lloc + 0.0)
+        return total_mi / (total_lloc + 0.0)
 
+
+    def __init__(self, package):
+        paths = [package]
+        self.paths = [package]
+        raw_data = RawHarvester(self.paths, Config(
+            exclude=None,
+            ignore=None,
+        ))
+        raw_dict = json.loads(raw_data.as_json())
         self.metric_dict = {
-            'lloc': lloc,
-            'cc': cc,
-            'mi': weighted_mi,
+            'lloc': self._get_sum_metric_from_raw_dict(raw_dict, 'lloc'),
+            'cc': self._get_average_cc(),
+            'mi': self._get_weighted_mi(raw_dict),
         }
