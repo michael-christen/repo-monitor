@@ -3,6 +3,7 @@ import sys
 
 from .python.parsers import CoverageParser
 from .python.parsers import NosetestParser
+from .python.parsers import RadonParser
 
 
 class Parser(object):
@@ -13,6 +14,7 @@ class Parser(object):
         self.sub_commands = {
             'coverage_py': CoverageParser,
             'nosetest_py': NosetestParser,
+            'radon_py': RadonParser,
         }
         self.base_parser.add_argument(
             'cmd',

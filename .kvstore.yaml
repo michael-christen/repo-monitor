@@ -1,3 +1,6 @@
-coverage: 73%
-num_tests: 3
-test_time: 0.132
+coverage: 81%
+cyclomatic_complexity: 1.97
+logical_loc: 191
+maintanibility_index: 54.48
+num_tests: 4
+test_time: 0.161

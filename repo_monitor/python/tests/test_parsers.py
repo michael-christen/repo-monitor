@@ -5,6 +5,7 @@ from ..deserializers import CoverageDeserializer
 from ..deserializers import NosetestDeserializer
 
 from ..parsers import NosetestParser
+from ..parsers import RadonParser
 
 
 def _get_data_filename(filename):
@@ -55,6 +56,16 @@ class TestTests(unittest.TestCase):
         self.assertEqual(5,
                          len(NosetestParser().run(['test2time',
                              file_arg]).split('\n')))
+
+
+class TestRadon(unittest.TestCase):
+    def test_radon_parser(self):
+        base_args = [
+            '--raw_json={}'.format(_get_data_filename('test_raw_radon.json')),
+            '--mi_json={}'.format(_get_data_filename('test_mi_radon.json')),
+        ]
+        self.assertEqual('192', RadonParser().run(base_args + ['lloc']))
+        self.assertEqual('54.34', RadonParser().run(base_args + ['mi']))
 
 
 EXAMPLE_COVERAGE_XML = '''<?xml version="1.0" ?>
