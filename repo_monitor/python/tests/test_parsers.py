@@ -58,7 +58,6 @@ class TestTests(unittest.TestCase):
                              file_arg]).split('\n')))
 
 
-
 class TestRadon(unittest.TestCase):
     def test_radon_parser(self):
         base_args = [
@@ -67,7 +66,6 @@ class TestRadon(unittest.TestCase):
         ]
         self.assertEqual('192', RadonParser().run(base_args + ['lloc']))
         self.assertEqual('54.34', RadonParser().run(base_args + ['mi']))
-
 
 
 EXAMPLE_COVERAGE_XML = '''<?xml version="1.0" ?>
