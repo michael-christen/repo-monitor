@@ -1,0 +1,30 @@
+{
+    "repo_monitor/__init__.py": {
+        "mi": 100.0,
+        "rank": "A"
+    },
+    "repo_monitor/parser.py": {
+        "mi": 66.14680509776308,
+        "rank": "A"
+    },
+    "repo_monitor/python/__init__.py": {
+        "mi": 100.0,
+        "rank": "A"
+    },
+    "repo_monitor/python/deserializers.py": {
+        "mi": 48.300257787544375,
+        "rank": "A"
+    },
+    "repo_monitor/python/parsers.py": {
+        "mi": 47.99413562182978,
+        "rank": "A"
+    },
+    "repo_monitor/python/tests/__init__.py": {
+        "mi": 100.0,
+        "rank": "A"
+    },
+    "repo_monitor/python/tests/test_parsers.py": {
+        "mi": 66.19570615975273,
+        "rank": "A"
+    }
+}

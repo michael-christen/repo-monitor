@@ -66,9 +66,9 @@ test: develop
 	$(WITH_VENV) repomon coverage_py | xargs fkvstore coverage
 	$(WITH_VENV) repomon nosetest_py num_tests | xargs fkvstore num_tests
 	$(WITH_VENV) repomon nosetest_py time | xargs fkvstore test_time
-	$(WITH_VENV) repomon radon_py cc repo_monitor | xargs fkvstore cyclomatic_complexity
-	$(WITH_VENV) repomon radon_py mi repo_monitor | xargs fkvstore maintanibility_index
-	$(WITH_VENV) repomon radon_py lloc repo_monitor | xargs fkvstore logical_loc
+	$(WITH_VENV) repomon radon_py cc --package=repo_monitor | xargs fkvstore cyclomatic_complexity
+	$(WITH_VENV) repomon radon_py mi --package=repo_monitor | xargs fkvstore maintanibility_index
+	$(WITH_VENV) repomon radon_py lloc --package=repo_monitor | xargs fkvstore logical_loc
 
 .PHONY: sdist
 sdist:

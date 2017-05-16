@@ -33,18 +33,40 @@ class NosetestDeserializer(object):
 
 
 class RadonDeserializer(object):
-    def __init__(self, package):
+    def __init__(self, package=None, raw_json=None, mi_json=None):
         self.paths = [package]
-        raw_data = RawHarvester(self.paths, Config(
-            exclude=None,
-            ignore=None,
-        ))
-        raw_dict = json.loads(raw_data.as_json())
+        self.raw_json = raw_json
+        self.mi_json = mi_json
+        raw_dict = self._get_raw_dict()
         self.metric_dict = {
             'lloc': self._get_sum_metric_from_raw_dict(raw_dict, 'lloc'),
-            'cc': self._get_average_cc(),
             'mi': self._get_weighted_mi(raw_dict),
         }
+        # Attempt to make cyclomatic complexity if possible
+        try:
+            self.metric_dict['cc'] = self._get_average_cc()
+        except Exception:
+            pass
+
+    def _get_raw_dict(self):
+        if self.raw_json is None:
+            self.raw_json = RawHarvester(self.paths, Config(
+                exclude=None,
+                ignore=None,
+            )).as_json()
+        return json.loads(self.raw_json)
+
+    def _get_mi_dict(self):
+        if self.mi_json is None:
+            self.mi_json = MIHarvester(self.paths, Config(
+                min='A',
+                max='F',
+                multi=True,
+                exclude=None,
+                ignore=None,
+                show=True,
+            )).as_json()
+        return json.loads(self.mi_json)
 
     def _get_sum_metric_from_raw_dict(self, raw_dict, metric):
         sum_metrics = defaultdict(int)
@@ -75,15 +97,7 @@ class RadonDeserializer(object):
         return total_cc / analyzed
 
     def _get_weighted_mi(self, raw_dict):
-        mi_data = MIHarvester(self.paths, Config(
-            min='A',
-            max='F',
-            multi=True,
-            exclude=None,
-            ignore=None,
-            show=True,
-        ))
-        mi_dict = json.loads(mi_data.as_json())
+        mi_dict = self._get_mi_dict()
         total_mi = 0
         total_lloc = 0
         for f_name, mi_value in mi_dict.iteritems():

@@ -69,12 +69,28 @@ class RadonParser(object):
             choices=['lloc', 'cc', 'mi'],
             help='Metric to gather')
         self.base_parser.add_argument(
-            'package',
-            help='Package to inspect')
+            '--package',
+            help='Package to inspect. (Needed for cc).')
+        self.base_parser.add_argument(
+            '--raw_json',
+            help='JSON file with raw Radon metrics')
+        self.base_parser.add_argument(
+            '--mi_json',
+            help='JSON file with maintanability index Radon metrics')
+
+    def _read_file_if_available(self, file_name):
+        if file_name is None:
+            return None
+        with open(file_name, 'r') as f:
+            return f.read()
 
     def run(self, args):
         parsed_args = self.base_parser.parse_args(args)
-        radon_data = RadonDeserializer(parsed_args.package).metric_dict
+        radon_data = RadonDeserializer(
+            package=parsed_args.package,
+            raw_json=self._read_file_if_available(parsed_args.raw_json),
+            mi_json=self._read_file_if_available(parsed_args.mi_json),
+        ).metric_dict
         if parsed_args.metric == 'lloc':
             format_str = '{:d}'
         else:

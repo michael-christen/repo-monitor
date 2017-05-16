@@ -1,0 +1,65 @@
+{
+    "repo_monitor/__init__.py": {
+        "blank": 0,
+        "comments": 0,
+        "lloc": 1,
+        "loc": 1,
+        "multi": 0,
+        "single_comments": 0,
+        "sloc": 1
+    },
+    "repo_monitor/parser.py": {
+        "blank": 6,
+        "comments": 0,
+        "lloc": 21,
+        "loc": 26,
+        "multi": 0,
+        "single_comments": 0,
+        "sloc": 26
+    },
+    "repo_monitor/python/__init__.py": {
+        "blank": 0,
+        "comments": 0,
+        "lloc": 0,
+        "loc": 0,
+        "multi": 0,
+        "single_comments": 0,
+        "sloc": 0
+    },
+    "repo_monitor/python/deserializers.py": {
+        "blank": 13,
+        "comments": 1,
+        "lloc": 69,
+        "loc": 98,
+        "multi": 0,
+        "single_comments": 1,
+        "sloc": 99
+    },
+    "repo_monitor/python/parsers.py": {
+        "blank": 11,
+        "comments": 0,
+        "lloc": 59,
+        "loc": 93,
+        "multi": 0,
+        "single_comments": 0,
+        "sloc": 93
+    },
+    "repo_monitor/python/tests/__init__.py": {
+        "blank": 0,
+        "comments": 0,
+        "lloc": 0,
+        "loc": 0,
+        "multi": 0,
+        "single_comments": 0,
+        "sloc": 0
+    },
+    "repo_monitor/python/tests/test_parsers.py": {
+        "blank": 16,
+        "comments": 2,
+        "lloc": 42,
+        "loc": 152,
+        "multi": 0,
+        "single_comments": 0,
+        "sloc": 152
+    }
+}
