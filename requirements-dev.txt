@@ -23,4 +23,4 @@ colorama==0.3.7
 
 # fkvstore
 file-kvstore==0.1.0
-PyYAML==3.11
+PyYAML==5.4
