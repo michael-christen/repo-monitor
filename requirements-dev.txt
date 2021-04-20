@@ -1,6 +1,6 @@
 # pytest
 pytest==2.8.5
-py==1.4.30
+py==1.10.0
 pytest-cov==2.2.0
 coverage==4.0.3
 
